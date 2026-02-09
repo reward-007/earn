@@ -3,46 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Status</title>
+    <title>Premium Stream - Connection Manager</title>
     <style>
-        body { font-family: sans-serif; background: #121212; color: white; text-align: center; padding: 50px; }
-        .container { max-width: 600px; margin: auto; border: 1px solid #333; padding: 20px; border-radius: 10px; }
-        .status-img { width: 100%; border-radius: 8px; margin-bottom: 20px; }
-        .alert { color: #ffcc00; margin-bottom: 20px; font-weight: bold; }
-        .server-list { display: grid; gap: 10px; }
-        .server-btn { 
-            background: #007bff; color: white; text-decoration: none; 
-            padding: 12px; border-radius: 5px; transition: 0.3s;
+        body { font-family: 'Segoe UI', sans-serif; background: #0b0b0b; color: #e5e5e5; text-align: center; padding: 20px; margin: 0; }
+        .container { max-width: 700px; margin: 30px auto; background: #181818; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 1px solid #222; }
+        
+        /* Video Box */
+        .video-placeholder { position: relative; width: 100%; background: #000; border-radius: 8px; overflow: hidden; border: 1px solid #333; margin-bottom: 20px; }
+        .status-img { width: 100%; display: block; opacity: 0.4; filter: blur(2px); }
+        
+        /* Play Icon */
+        .play-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(229, 9, 20, 0.9); border-radius: 50%; width: 70px; height: 70px;
+            display: flex; align-items: center; justify-content: center;
         }
-        .server-btn:hover { background: #0056b3; }
+
+        /* Animated Loading Bar */
+        .progress-container { background: #333; height: 8px; width: 100%; border-radius: 10px; margin: 20px 0; overflow: hidden; }
+        .progress-bar { 
+            height: 100%; width: 0%; background: #e50914; 
+            box-shadow: 0 0 10px #e50914;
+            animation: load 4s infinite cubic-bezier(0.1, 0.42, 1, 1); 
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        .status-text { color: #aaa; font-size: 0.85em; margin-top: -10px; font-style: italic; }
+        .alert { background: rgba(229, 9, 20, 0.1); border-left: 5px solid #e50914; color: #ff4d4d; padding: 15px; border-radius: 4px; margin: 20px 0; font-weight: bold; }
+
+        /* Server Buttons */
+        .server-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .server-btn { 
+            background: linear-gradient(180deg, #444 0%, #222 100%); color: white; text-decoration: none; 
+            padding: 14px; border-radius: 4px; font-weight: bold; border: 1px solid #444;
+            transition: 0.2s;
+        }
+        .server-btn:hover { border-color: #e50914; background: #333; transform: scale(1.02); }
+        
+        @media (max-width: 600px) { .server-list { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-<script>
-  atOptions = {
-    'key' : '451092a68cf4a84cca4f8b06a66dc181',
-    'format' : 'iframe',
-    'height' : 90,
-    'width' : 728,
-    'params' : {}
-  };
-</script>
-<script src="https://shaggysinner.com/451092a68cf4a84cca4f8b06a66dc181/invoke.js"></script>
+
 <div class="container">
-    <h2>Current Status: Busy</h2>
-    <img src="https://via.placeholder.com/600x337.png?text=Server+Busy+-+Too+Many+Viewers" alt="Loading" class="status-img">
+    <div class="video-placeholder">
+        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800" alt="Stream Preview" class="status-img">
+        <div class="play-overlay">
+            <svg viewBox="0 0 24 24" width="35" height="35" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+    </div>
+
+    <div class="progress-container"><div class="progress-bar"></div></div>
+    <p id="dynamic-status" class="status-text">Synchronizing with main cluster...</p>
     
-    <p class="alert">Due to high traffic, please try a different server below:</p>
+    <div class="alert">
+        ⚠️ STREAM OVERLOAD: Server 01 is currently at 100% capacity.
+    </div>
+
+    <p style="font-size: 0.9em; margin-bottom: 20px;">Please switch to an available mirror below to bypass the queue:</p>
 
     <div class="server-list">
-        <a href="https://shaggysinner.com/iihjvfep2?key=5c21d925a9e94c3e99e28adec197a7c5" class="server-btn">Server 1 (Auto-Detect)</a>
-        <a href="https://shaggysinner.com/cuhtiw771x?key=599080fe9d19f7415d93762199b1c5f4" class="server-btn">Server 2 (North America)</a>
-        <a href="https://shaggysinner.com/vtfvpv16?key=785d7c7f9378cc3037258bc4331f774e" class="server-btn">Server 3 (Europe)</a>
-        <a href="https://shaggysinner.com/vtfvpv16?key=785d7c7f9378cc3037258bc4331f774e" class="server-btn">Server 4 (Asia)</a>
-        <a href="https://shaggysinner.com/cuhtiw771x?key=599080fe9d19f7415d93762199b1c5f4" class="server-btn">Server 5 (Backup)</a>
+        <a href="https://shaggysinner.com/iihjvfep2?key=5c21d925a9e94c3e99e28adec197a7c5" class="server-btn">Mirror 1 [1080p]</a>
+        <a href="https://shaggysinner.com/cuhtiw771x?key=599080fe9d19f7415d93762199b1c5f4" class="server-btn">Mirror 2 [720p]</a>
+        <a href="https://shaggysinner.com/vtfvpv16?key=785d7c7f9378cc3037258bc4331f774e" class="server-btn">Mirror 3 [Mobile]</a>
+        <a href="https://shaggysinner.com/vtfvpv16?key=785d7c7f9378cc3037258bc4331f774e" class="server-btn">Mirror 4 [Backup]</a>
     </div>
 </div>
-<script src="https://shaggysinner.com/20/fb/3a/20fb3a162394e012658750cb7e524394.js"></script>
+
+<script>
+    // Simple script to cycle the status text
+    const statusText = document.getElementById('dynamic-status');
+    const messages = [
+        "Connecting to cloud network...",
+        "Analyzing viewer traffic...",
+        "Bypassing queue limits...",
+        "Selecting best mirror for your IP...",
+        "Buffering stream data..."
+    ];
+    let i = 0;
+    setInterval(() => {
+        statusText.innerText = messages[i];
+        i = (i + 1) % messages.length;
+    }, 2000);
+</script>
 
 </body>
 </html>
