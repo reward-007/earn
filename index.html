@@ -1,95 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Status</title>
-    <style>
-        /* Background changed to white, text to dark gray for contrast */
-        body { 
-            font-family: sans-serif; 
-            background: #ffffff; 
-            color: #333; 
-            text-align: center; 
-            padding: 50px; 
-        }
-        .container { 
-            max-width: 600px; 
-            margin: auto; 
-            border: 1px solid #ddd; 
-            padding: 20px; 
-            border-radius: 10px; 
-            background: #fff;
-        }
-        .status-img { 
-            width: 100%; 
-            border-radius: 8px; 
-            margin-bottom: 20px; 
-        }
-        .alert { 
-            color: #d97706; /* Adjusted gold color for white background visibility */
-            margin-bottom: 20px; 
-            font-weight: bold; 
-        }
-        .server-list { 
-            display: grid; 
-            gap: 10px; 
-        }
-        .server-btn { 
-            background: #007bff; 
-            color: white; 
-            text-decoration: none; 
-            padding: 12px; 
-            border-radius: 5px; 
-            transition: 0.3s;
-        }
-        .server-btn:hover { 
-            background: #0056b3; 
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stream Status</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #ffffff;
+        color: #333;
+        text-align: center;
+        padding: 40px;
+    }
+
+    .container {
+        max-width: 650px;
+        margin: auto;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        background: #fff;
+    }
+
+    /* IMAGE + PLAY ICON */
+    .image-wrapper {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .status-img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        display: block;
+    }
+
+    .play-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        background: rgba(0,0,0,0.6);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .play-icon::before {
+        content: "";
+        margin-left: 5px;
+        border-style: solid;
+        border-width: 15px 0 15px 25px;
+        border-color: transparent transparent transparent white;
+    }
+
+    /* STATUS HIDDEN INITIALLY */
+    .status-text {
+        display: none;
+        margin-top: 15px;
+    }
+
+    .alert {
+        color: #d97706;
+        font-weight: bold;
+        margin: 20px 0;
+    }
+
+    /* SERVERS */
+    .server-list {
+        display: grid;
+        gap: 10px;
+    }
+
+    .server-btn {
+        background: #007bff;
+        color: #fff;
+        text-decoration: none;
+        padding: 12px;
+        border-radius: 5px;
+        display: block;
+        transition: background 0.3s;
+    }
+
+    .server-btn:hover {
+        background: #0056b3;
+    }
+</style>
 </head>
+
 <body>
 
-<script>
-  atOptions = {
-    'key' : '89098d9fd68f82c7b06c3b8be8b04599',
-    'format' : 'iframe',
-    'height' : 60,
-    'width' : 468,
-    'params' : {}
-  };
-</script>
-    <script src="https://shaggysinner.com/89098d9fd68f82c7b06c3b8be8b04599/invoke.js"></script>
-
-
 <div class="container">
-    <h2>Current Status: Busy</h2>
-    
-    <img src="https://egl.phncdn.com/pics/gifs/033/825/032/(m=bKW1KNV)(mh=53pRFL_dnKOZA_m0)33825032a.jpg" alt="Loading" class="status-img">
-    
+
+    <!-- IMAGE -->
+    <div class="image-wrapper" onclick="onImageClick()">
+        <img
+            src="https://thumbs.dreamstime.com/b/couple-having-sex-bed-beautiful-passionate-woman-atop-man-grabbing-woman-s-buttocks-95315984.jpg"
+            alt="Busy Status"
+            class="status-img"
+        >
+        <div class="play-icon" id="playIcon"></div>
+    </div>
+
+    <!-- STATUS -->
+    <h2 class="status-text" id="statusText">Current Status: Busy</h2>
+
     <p class="alert">Due to high traffic, please try a different server below:</p>
 
+    <!-- SERVERS -->
     <div class="server-list">
-        <a href="https://shaggysinner.com/iihjvfep2?key=5c21d925a9e94c3e99e28adec197a7c5" class="server-btn">Server 1 (Auto-Detect)</a>
-        <a href="https://shaggysinner.com/cuhtiw771x?key=599080fe9d19f7415d93762199b1c5f4" class="server-btn">Server 2 (North America)</a>
-        <a href="https://shaggysinner.com/vtfvpv16?key=785d7c7f9378cc3037258bc4331f774e" class="server-btn">Server 3 (Europe)</a>
-        <a href="https://shaggysinner.com/vtfvpv16?key=785d7c7f9378cc3037258bc4331f774e" class="server-btn">Server 4 (Asia)</a>
-        <a href="https://shaggysinner.com/cuhtiw771x?key=599080fe9d19f7415d93762199b1c5f4" class="server-btn">Server 5 (Backup)</a>
+        <a href="https://shaggysinner.com/iihjvfep2?key=5c21d925a9e94c3e99e28adec197a7c5" class="server-btn">
+            Server 1 (Auto-Detect)
+        </a>
+        <a href="https://shaggysinner.com/cuhtiw771x?key=599080fe9d19f7415d93762199b1c5f4" class="server-btn">
+            Server 2 (North America)
+        </a>
+        <a href="https://shaggysinner.com/vtfvpv16?key=785d7c7f9378cc3037258bc4331f774e" class="server-btn">
+            Server 3 (Europe)
+        </a>
+        <a href="https://shaggysinner.com/vtfvpv16?key=785d7c7f9378cc3037258bc4331f774e" class="server-btn">
+            Server 4 (Asia)
+        </a>
     </div>
 </div>
 
-<script src="https://shaggysinner.com/20/fb/3a/20fb3a162394e012658750cb7e524394.js"></script>
-
 <script>
-  atOptions = {
-    'key' : '89098d9fd68f82c7b06c3b8be8b04599',
-    'format' : 'iframe',
-    'height' : 60,
-    'width' : 468,
-    'params' : {}
-  };
+function onImageClick() {
+    // Show status text
+    document.getElementById("statusText").style.display = "block";
+
+    // Hide play icon
+    document.getElementById("playIcon").style.display = "none";
+
+    // Redirect on image click
+    window.location.href = "https://sensibleexterminatorprivate.com/jgtvk44s?key=44e0192c8a90905162303f94f63d6520";
+}
 </script>
-<script src="https://shaggysinner.com/89098d9fd68f82c7b06c3b8be8b04599/invoke.js"></script>
 
 </body>
 </html>
