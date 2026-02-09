@@ -2,38 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Smart Rotating Redirect</title>
+  <title>Multi Redirect</title>
 </head>
-<body>
+<body style="text-align:center;font-family:Arial">
 
-  <h2 style="text-align:center;margin-top:50px;">
-    Please wait... Redirecting in <span id="count">5</span> seconds
-  </h2>
+  <h2>Redirecting in 5 seconds...</h2>
 
   <script>
-    // 🔗 ADD UNLIMITED LINKS HERE
     const links = [
-      "https://sensibleexterminatorprivate.com/jgtvk44s?key=44e0192c8a90905162303f94f63d6520",
-      "https://sensibleexterminatorprivate.com/bn7ya28f?key=0c8acc08c4897e64b71d08f8635dc0f1",
-      "https://sensibleexterminatorprivate.com/vtfvpv16?key=785d7c7f9378cc3037258bc4331f774e"
+      "https://example1.com",
+      "https://example2.com",
+      "https://example3.com",
+      "https://example4.com",
+      "https://example5.com" // last one will open in same tab
     ];
 
-    let index = parseInt(localStorage.getItem("redirectIndex") || "0");
+    setTimeout(() => {
 
-    if (index >= links.length) index = 0;
-
-    let countdown = 5;
-    const timer = setInterval(() => {
-      document.getElementById("count").innerText = countdown;
-      countdown--;
-      if (countdown < 0) {
-        clearInterval(timer);
-        window.open(links[index], "_blank");
-        localStorage.setItem("redirectIndex", index + 1);
+      // Open first 4 links in new tabs
+      for (let i = 0; i < 4; i++) {
+        window.open(links[i], "_blank");
       }
-    }, 1000);
+
+      // Open 5th link in same tab
+      window.location.href = links[4];
+
+    }, 5000);
   </script>
 
 </body>
 </html>
+
 
